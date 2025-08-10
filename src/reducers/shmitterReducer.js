@@ -1,11 +1,6 @@
-import {
-    CHANGE_AVATAR,
-    CHANGE_NAME,
-    INCREASE_FOLLOWERS,
-    INCREASE_FOLLOWING,
-    DECREASE_FOLLOWERS,
-    DECREASE_FOLLOWING
-} from "../actions/userAction.js";
+
+import {CHANGE_AVATAR, CHANGE_NAME} from "../actions/userAction.js";
+import {CHANGE_STATS} from "../actions/statsAction.js";
 
 // typeof State = {
 //     user: {
@@ -18,20 +13,18 @@ import {
 //     }
 // }
 
+
 export const shmitterReducer = (state, action) => {
     switch (action.type) {
         case CHANGE_AVATAR:
             return {...state, user: {...state.user, avatar: action.payload || state.user.avatar}};
         case CHANGE_NAME:
             return {...state, user: {...state.user, name: action.payload || state.user.name}};
-        case INCREASE_FOLLOWERS:
-            return {...state, stats: {...state.stats, followers: state.stats.followers + 1}};
-        case INCREASE_FOLLOWING:
-            return {...state, stats: {...state.stats, following: state.stats.following + 1}};
-        case DECREASE_FOLLOWERS:
-            return {...state, stats: {...state.stats, followers: Math.max(0, state.stats.followers - 1)}};
-        case DECREASE_FOLLOWING:
-            return {...state, stats: {...state.stats, following: Math.max(0, state.stats.following - 1)}};
+        case CHANGE_STATS: {
+            const res = state.stats[action.payload.statsType] + action.payload.sum;
+            const stats = {...state.stats, [action.payload.statsType]: res >= 0 ? res : 0};
+            return {...state, stats}
+        }
         default:
             return state;
     }
