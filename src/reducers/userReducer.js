@@ -1,12 +1,12 @@
-// type State = {
-//     name: string,
-//     avatar: string,
-// },
-
-
 import {CHANGE_AVATAR, CHANGE_NAME} from "../actions/userAction.js";
 
-export const userReducer = (state, action) => {
+const defaultState = {
+    name: "Retro",
+    avatar: 'https://gravatar.com/avatar/000?d=retro',
+}
+
+
+export const userReducer = (state = defaultState, action) => {
     switch (action.type) {
         case CHANGE_AVATAR:
             return {...state, avatar: action.payload || state.avatar};
