@@ -1,21 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 
-const initialState = {
-    followers: 0,
-    following: 0
-}
 const statsSlice = createSlice({
     name: "stats",
-    initialState,
+    initialState: {
+        followers: 0,
+        following: 0
+    },
     reducers: {
         changeStats: (state, action) => {
-            const {key, value} = action.payload;
-            if (key in state) {
-                const newValue = state[key] + value;
-                state[key] = newValue < 0 ? 0 : newValue;
-            }
-
+            const res = state[action.payload.statsType] + action.payload.sum;
+            state[action.payload.statsType] = res >= 0 ? res : 0;
         }
 
     },

@@ -1,15 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initialState = {
-    name:"Retro",
-    avatar: "https://gravatar.com/avatar/000?d=retro"
-}
+
 const userSlice = createSlice({
     name: "user",
-    initialState,
+    initialState: {
+        name:"Retro",
+        avatar: "https://gravatar.com/avatar/000?d=retro"
+    },
     reducers: {
-        changeName: (state, action) => {state.name = action.payload},
-        changeAvatar: (state, action) => {state.avatar = action.payload}
+        changeName: (state, action) => {state.name = action.payload || state.name},
+        changeAvatar: (state, action) => {state.avatar = action.payload || state.avatar}
     },
 })
 
